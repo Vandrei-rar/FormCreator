@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+
+  forms_db:
+    image: postgres:11
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=form123
+      - POSTGRES_USER=form
+      - POSTGRES_DB=forms
+    ports:
+      - 5432:5432
