@@ -1,25 +1,21 @@
-import { NextResponse } from "next/server";
-import { PrismaClient } from '@prisma/client'
-import { log } from "console";
+import { formSchema } from "@/schemas/form.schema";
+import { NextRequest, NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client"
+import { validate } from "@/validation/validate";
+
 const prisma = new PrismaClient()
 
-export async function POST(req: Request) {
-    const data = await req.formData();
-    
-    return NextResponse.json({data: data})
+export async function POST(request: NextRequest) {
+  const data: IForms = await request.json();
 
-    // const form = await prisma.form.create({
-    //     data: {
-    //         name: 'Formulario teste',
-    //         description: 'Descrição teste',
-    //     }
-    // })
+  const isValid = await validate(data, formSchema);
 
-    //return NextResponse.json({form});
+  return isValid instanceof NextResponse ? isValid :
+  new NextResponse(JSON.stringify({ dados: data }), { status: 200 });
 }
 
 export async function GET() {
-    const data = await prisma.form.findMany();
+  // const data = await prisma.form.findMany();
 
-    return NextResponse.json({data})
+  return new NextResponse(JSON.stringify({  }), {status: 200});
 }

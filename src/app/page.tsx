@@ -8,7 +8,7 @@ export default function Home() {
     <Flex height="100vh" justifyContent={"center"} alignItems={"center"}>
       <Container maxW={"container.xl"} centerContent>
         <Text fontSize={"4xl"}>Crie seu formulário</Text>
-        <NextLink href='/form'>
+        <NextLink href="/form">
           <Button colorScheme="orange" rightIcon={<ArrowForwardIcon />}>
             Começar
           </Button>
